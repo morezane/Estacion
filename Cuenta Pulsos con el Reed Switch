@@ -1,0 +1,29 @@
+
+//Sacado:http://note19.com/2008/12/28/circuit-gear-arduino-and-counting-pulses/
+int pulsePin = 2;
+unsigned long counter = 0;
+unsigned long duration = 0;
+unsigned long timeout = 1000000; // in microseconds
+
+void setup() {
+  pinMode(pulsePin, INPUT);
+  // enable the 20K pull-up resistor to steer
+  // the input pin to a HIGH reading.
+  digitalWrite(pulsePin, HIGH);
+  Serial.begin(9600);
+  Serial.println("Here we go again");
+}
+
+void loop() {
+  duration = pulseIn(pulsePin, HIGH, timeout);
+  if (duration == 0) {
+    Serial.print("Pulse started before the timeout.");
+    Serial.println("");
+  } else {
+    counter++;
+    Serial.print(counter);
+    Serial.print(", ");
+    Serial.print(duration);
+    Serial.println("");
+  }
+}
