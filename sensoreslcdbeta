@@ -1,0 +1,34 @@
+
+
+// include the library code:
+#include <LiquidCrystal.h>
+#include <Wire.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BMP085_U.h>
+Adafruit_BMP085_Unified bmp = Adafruit_BMP085_Unified(10085);
+// initialize the library with the numbers of the interface pins
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+void setup() {
+  // set up the LCD's number of columns and rows:
+  lcd.begin(20, 4);                      //20 Zeichen, 4 Zeilen
+
+}
+
+void loop() {
+  sensor_t sensor;
+  bmp.getSensor(&sensor);
+  lcd.setCursor(0, 0);                    // Set Cursor to position 0,0
+  lcd.print("Sensor:       "); lcd.println(sensor.name);
+  lcd.print("Driver Ver:       "); lcd.println(sensor.version);
+  lcd.print("Unique ID:       "); lcd.println(sensor.sensor_id);
+  lcd.print("Max Value:       "); lcd.print(sensor.max_value); lcd.println(" hPa");
+  lcd.print("Min Value:       "); lcd.print(sensor.min_value); lcd.println(" hPa");;
+  lcd.print("-----------------------------------------------");
+    lcd.print("");
+  lcd.setCursor(0, 2);
+  lcd.print("LCD2004 testing ...");  
+  lcd.setCursor(0, 3);
+  lcd.print("HD44780 LCD 20x04 ");
+   delay(500);
+}
